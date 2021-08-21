@@ -53,4 +53,4 @@ jobs:
           host: ${{ secrets.INT_HOST }}
           username: ${{ secrets.INT_USERNAME }}
           password: ${{ secrets.INT_PASSWORD }}
-          script: bash ${{ BUILD_SCRIPT }}
+          script: bash ${{ secrets.BUILD_SCRIPT }}
