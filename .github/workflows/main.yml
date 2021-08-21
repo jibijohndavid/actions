@@ -53,5 +53,4 @@ jobs:
           host: ${{ secrets.INT_HOST }}
           username: ${{ secrets.INT_USERNAME }}
           password: ${{ secrets.INT_PASSWORD }}
-          script: |
-            cp ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}/ ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}.bak/
+          script: bash ${{ BUILD_SCRIPT }}
