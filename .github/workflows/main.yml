@@ -1,4 +1,3 @@
-  
 name: Artifact Transfer Test
 
 on: workflow_dispatch
@@ -10,11 +9,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Package
+        run: npm run build
+        
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: web-artifact
-          path: public/images/header
+          name: artifact-web
+          path: .next
           if-no-files-found: error
           
       - name: Download a single artifact
@@ -27,6 +44,6 @@ jobs:
           host: ${{ secrets.INT_HOST }}
           username: ${{ secrets.INT_USERNAME }}
           password: ${{ secrets.INT_PASSWORD }}
-          source: ${{steps.download.outputs.download-path}}web-artifact
+          source: ${{steps.download.outputs.download-path}}/artifact-web
           target: ${{ secrets.INT_PATH }}
           rm: true
