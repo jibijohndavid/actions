@@ -54,6 +54,5 @@ jobs:
           username: ${{ secrets.INT_USERNAME }}
           password: ${{ secrets.INT_PASSWORD }}
           script: |
-            mv -r ${{ secrets.ARTIFACT_PATH }}${{ secrets.WEB_DIRECTORY }} ${{ secrets.INT_WEB_PATH }}${{ secrets.WEB_DIRECTORY }}.bak
+            mv -r ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }} ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}.bak
             mv ${{ secrets.ARTIFACT_PATH }}artifact-web ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}
-            rm -r ${{ secrets.ARTIFACT_PATH }}
