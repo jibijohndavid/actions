@@ -1,0 +1,32 @@
+  
+name: Artifact Transfer Test
+
+on: workflow_dispatch
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-artifact
+          path: public/images/header
+          if-no-files-found: error
+          
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        id: download
+        
+      - name: Transfer artifact
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.INT_HOST }}
+          username: ${{ secrets.INT_USERNAME }}
+          password: ${{ secrets.INT_PASSWORD }}
+          source: ${{steps.download.outputs.download-path}}web-artifact
+          target: ${{ secrets.INT_PATH }}
+          rm: true
