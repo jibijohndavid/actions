@@ -47,3 +47,13 @@ jobs:
           source: ${{steps.download.outputs.download-path}}/artifact-web
           target: ${{ secrets.INT_PATH }}
           rm: true
+          
+      - name: Executing deploy commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.INT_HOST }}
+          username: ${{ secrets.INT_USERNAME }}
+          password: ${{ secrets.INT_PASSWORD }}
+          script: |
+            mv -r ${{ secrets.ARTIFACT_PATH }}${{ secrets.WEB_DIRECTORY }} ${{ secrets.INT_WEB_PATH }}${{ secrets.WEB_DIRECTORY }}.bak
+            mv ${{ secrets.ARTIFACT_PATH }}artifact-web ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}
