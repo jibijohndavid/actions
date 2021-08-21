@@ -3,7 +3,7 @@ name: Artifact Transfer Test
 on: workflow_dispatch
 
 jobs:
-  build_and_test:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -54,5 +54,5 @@ jobs:
           username: ${{ secrets.INT_USERNAME }}
           password: ${{ secrets.INT_PASSWORD }}
           script: |
-            mv -r ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }} ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}.bak
-            mv ${{ secrets.ARTIFACT_PATH }}artifact-web ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}
+            mv ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}/ ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}.bak/
+            mv ${{ secrets.ARTIFACT_PATH }}artifact-web/ ${{ secrets.INT_PATH }}${{ secrets.WEB_DIRECTORY }}/
