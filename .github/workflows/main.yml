@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.INT_USERNAME }}
           password: ${{ secrets.INT_PASSWORD }}
           source: ${{steps.download.outputs.download-path}}/artifact-web
-          target: ${{ secrets.INT_PATH }}
+          target: ${{ secrets.ARTIFACT_PATH }}
           
       - name: Executing deploy commands
         uses: appleboy/ssh-action@master
@@ -53,4 +53,5 @@ jobs:
           host: ${{ secrets.INT_HOST }}
           username: ${{ secrets.INT_USERNAME }}
           password: ${{ secrets.INT_PASSWORD }}
-          script: bash ${{ secrets.BUILD_SCRIPT }}
+          script: bash ${{ secrets.DEPLOY_SCRIPT }}
+          script_stop: true
